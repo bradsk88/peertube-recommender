@@ -1,24 +1,19 @@
-package recommendations
+package server
 
 import (
 	"github.com/bradsk88/peertube-recommender/peertube"
+	"github.com/bradsk88/peertube-recommender/recommendations"
 	"testing"
 )
 
 func TestFormatGeneratesCorrectResponseForSimpleRecommendations(t *testing.T) {
 	formatter := &ListResponseFormatter{}
-	recommendations := []Recommendation{
-		recommendation{
-			NameValue: "Name1",
-			URIValue:  "URL1",
-		},
-		recommendation{
-			NameValue: "Name2",
-			URIValue:  "URL2",
-		},
+	rs := []recommendations.Recommendation{
+		recommendations.NewImmutable("Name1", "URL1"),
+		recommendations.NewImmutable("Name2", "URL2"),
 	}
 	origin := peertube.NewVideoIdentifiers("origin1")
-	actual, err := formatter.format(origin, recommendations)
+	actual, err := formatter.format(origin, rs)
 	if err != nil {
 		t.Fail()
 	}

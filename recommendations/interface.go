@@ -7,6 +7,5 @@ type Recommender interface {
 }
 
 type Recommendation interface {
-	Name() string
-	URI() string
+	peertube.DestinationVideo
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/bradsk88/peertube-recommender/recommendations"
+	"github.com/bradsk88/peertube-recommender/server"
 	"github.com/inconshreveable/log15"
 	"net/http"
 	"os"
@@ -13,7 +14,7 @@ func main() {
 	l.SetHandler(log15.StreamHandler(os.Stderr, log15.TerminalFormat()))
 
 	mux := http.ServeMux{}
-	mux.Handle("/recommendations", recommendations.NewHandler(l, recommendations.NewRecommenderMock()))
+	mux.Handle("/recommendations", server.NewHandler(l, recommendations.NewRecommenderMock()))
 
 	err := http.ListenAndServe(":9999", &mux)
 	panic(fmt.Sprintf("Failed to serve: %s", err.Error()))

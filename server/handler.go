@@ -1,12 +1,13 @@
-package recommendations
+package server
 
 import (
+	"github.com/bradsk88/peertube-recommender/recommendations"
 	log "github.com/inconshreveable/log15"
 	"github.com/pkg/errors"
 	"net/http"
 )
 
-func NewHandler(l log.Logger, r Recommender) *Handler {
+func NewHandler(l log.Logger, r recommendations.Recommender) *Handler {
 	logger := l.New("module", "recommendations")
 	return &Handler{
 		logger:      logger,
@@ -18,7 +19,7 @@ func NewHandler(l log.Logger, r Recommender) *Handler {
 
 type Handler struct {
 	logger      log.Logger
-	recommender Recommender
+	recommender recommendations.Recommender
 	formatter   *ListResponseFormatter
 	parser      *ListRequestParser
 }

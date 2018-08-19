@@ -1,14 +1,15 @@
-package recommendations
+package server
 
 import (
 	"encoding/json"
 	"github.com/bradsk88/peertube-recommender/peertube"
+	"github.com/bradsk88/peertube-recommender/recommendations"
 	"github.com/pkg/errors"
 )
 
 type recommendationResponse struct {
-	Origin          originData       `json:"origin"`
-	Recommendations []recommendation `json:"recommendations"`
+	Origin          originData                  `json:"origin"`
+	Recommendations []recommendations.Immutable `json:"recommendations"`
 }
 
 type originData struct {
@@ -20,7 +21,7 @@ type ListResponseFormatter struct {
 
 type origin = peertube.VideoIdentification
 
-func (l *ListResponseFormatter) format(o origin, r []Recommendation) ([]byte, error) {
+func (l *ListResponseFormatter) format(o origin, r []recommendations.Recommendation) ([]byte, error) {
 	d := normalizeData(r)
 	rr := recommendationResponse{
 		Origin: originData{
@@ -35,13 +36,10 @@ func (l *ListResponseFormatter) format(o origin, r []Recommendation) ([]byte, er
 	return s, nil
 }
 
-func normalizeData(r []Recommendation) []recommendation {
-	out := make([]recommendation, len(r))
+func normalizeData(r []recommendations.Recommendation) []recommendations.Immutable {
+	out := make([]recommendations.Immutable, len(r))
 	for i, rec := range r {
-		out[i] = recommendation{
-			NameValue: rec.Name(),
-			URIValue:  rec.URI(),
-		}
+		out[i] = recommendations.NewImmutable(rec.Name(), rec.URI())
 	}
 	return out
 }
