@@ -19,7 +19,7 @@ type originData struct {
 type ListResponseFormatter struct {
 }
 
-type origin = peertube.VideoIdentification
+type origin peertube.VideoIdentification
 
 func (l *ListResponseFormatter) format(o origin, r []recommendations.Recommendation) ([]byte, error) {
 	d := normalizeData(r)

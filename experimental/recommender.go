@@ -20,7 +20,7 @@ type Recommender struct {
 	history history.Repository
 }
 
-func (r *Recommender) List(origin Origin) ([]recommendations.Recommendation, error) {
+func (r *Recommender) List(origin peertube.VideoIdentification) ([]recommendations.Recommendation, error) {
 	h, err := r.history.LookupForOrigin(origin)
 	if err != nil {
 		return nil, errors.Wrapf(err, "Failed to look up history for origin: %s", origin.VideoID())
