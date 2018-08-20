@@ -31,7 +31,8 @@ func (h *ViewCreateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	d := peertube.NewImmutableDestinationVideo(req.VideoID, req.VideoURI, req.VideoName)
-	err = h.repo.AddHistory(history.NewImmutable(&req.Origin, d, req.WatchSeconds))
+	i := history.NewImmutable(req.UserID, &req.Origin, d, req.WatchSeconds)
+	err = h.repo.AddHistory(i)
 	if err != nil {
 		h.error(w, "Error storing view:", err, 500)
 		return

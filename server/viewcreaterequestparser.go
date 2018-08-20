@@ -42,6 +42,7 @@ func (parser *ViewCreateRequestParser) Parse(r *http.Request) (*ViewCreateReques
 }
 
 type ViewCreateRequest struct {
+	UserID       string                             `json:"userId"`
 	Origin       peertube.SimpleVideoIdentification `json:"origin"`
 	VideoURI     string                             `json:"videoUri"`
 	VideoName    string                             `json:"videoName"`

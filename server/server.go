@@ -1,9 +1,8 @@
 package server
 
 import (
-	"github.com/bradsk88/peertube-recommender/experimental"
 	"github.com/bradsk88/peertube-recommender/history"
-	"github.com/bradsk88/peertube-recommender/videorepo"
+	"github.com/bradsk88/peertube-recommender/recommendations"
 	"github.com/inconshreveable/log15"
 	"github.com/pkg/errors"
 	"net/http"
@@ -11,14 +10,13 @@ import (
 
 type HTTP struct {
 	Logger      log15.Logger
-	VideoRepo   videorepo.Repository
 	HistoryRepo history.Repository
+	Recommender recommendations.Recommender
 }
 
 func (s *HTTP) Serve() error {
 	mux := http.ServeMux{}
-	r := experimental.NewRecommender(s.VideoRepo, s.HistoryRepo)
-	mux.Handle("/recommendations", NewListHandler(s.Logger, r))
+	mux.Handle("/recommendations", NewListHandler(s.Logger, s.Recommender))
 	mux.Handle("/view", NewViewCreateHandler(s.Logger, s.HistoryRepo))
 
 	err := http.ListenAndServe(":9999", &mux)

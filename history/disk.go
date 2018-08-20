@@ -1,17 +1,16 @@
 package history
 
 import (
-	"github.com/peterbourgon/diskv"
-	"fmt"
 	"encoding/json"
+	"github.com/peterbourgon/diskv"
 	"github.com/pkg/errors"
 )
 
 func NewDiskBackedRepository() *DiskBackedRepository {
-	flatTransform := func(s string) []string {return []string{} }
+	flatTransform := func(s string) []string { return []string{} }
 	db := diskv.New(diskv.Options{
-		BasePath: "peertube-recos",
-		Transform: flatTransform,
+		BasePath:     "peertube-recos",
+		Transform:    flatTransform,
 		CacheSizeMax: 1024 * 1024,
 	})
 	return &DiskBackedRepository{
@@ -24,18 +23,18 @@ type DiskBackedRepository struct {
 }
 
 type jsonHistory struct {
-	Name string `json:"name"`
-	URI string `json:"uri"`
-	AverageWatchTime int64 `json:"watchTime"`
-	Views int64 `json:"views"`
+	User      string `json:"user"`
+	Name      string `json:"name"`
+	URI       string `json:"uri"`
+	WatchTime int64  `json:"watchTime"`
 }
 
-func (d *DiskBackedRepository) AddHistory(h History) (error) {
+func (d *DiskBackedRepository) AddHistory(h History) error {
 	jsh := jsonHistory{
-		Name: h.Video().Name(),
-		URI: h.Video().URI(),
-		AverageWatchTime: h.WatchSeconds(), // TODO: Average with prev history
-		Views: 1, // TODO: Look up previous history and increment this
+		User:      h.UserID(),
+		Name:      h.Video().Name(),
+		URI:       h.Video().URI(),
+		WatchTime: h.WatchSeconds(), // TODO: Average with prev history
 	}
 	s, err := json.Marshal(jsh)
 	if err != nil {
@@ -46,8 +45,4 @@ func (d *DiskBackedRepository) AddHistory(h History) (error) {
 		return errors.Wrap(err, "Failed to write to disk")
 	}
 	return nil
-}
-
-func (d *DiskBackedRepository) LookupForOrigin(origin Origin) ([]History, error) {
-	return nil, fmt.Errorf("not implemented")
 }

@@ -9,3 +9,6 @@ type Recommender interface {
 type Recommendation interface {
 	peertube.DestinationVideo
 }
+
+type Repository interface {
+}
