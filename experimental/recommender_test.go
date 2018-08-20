@@ -62,7 +62,7 @@ func TestShouldReturnErrorIfHistoryRepositoryFailsToProvideVideos(t *testing.T) 
 
 func TestShouldReturnARecommendation(t *testing.T) {
 	repo := videorepo.NewMockRepository()
-	repo.AddVideo(peertube.NewImmutableDestinationVideo("VidID", "VidName"))
+	repo.AddVideo(peertube.NewImmutableDestinationVideo("V1", "VidID", "VidName"))
 	noHistory := history.NewMockRepository()
 	r := NewRecommender(repo, noHistory)
 	origin := peertube.NewVideoIdentifiers("origin video ID")
@@ -88,17 +88,17 @@ func TestShouldPreferAFullViewOverAPartialView(t *testing.T) {
 
 	origin := peertube.NewVideoIdentifiers("origin video ID")
 
-	destination1 := peertube.NewImmutableDestinationVideo("http://example.com/1", "Video 1")
-	watchPercent1 := 1.0
-	vidHistory.AddHistory(history.NewImmutable(origin, destination1, watchPercent1))
+	destination1 := peertube.NewImmutableDestinationVideo("V1", "http://example.com/1", "Video 1")
+	watchSeconds1 := int64(100)
+	vidHistory.AddHistory(history.NewImmutable(origin, destination1, watchSeconds1))
 
-	destination2 := peertube.NewImmutableDestinationVideo("http://example.com/2", "Video 2")
-	watchPercent2 := 0.99
-	vidHistory.AddHistory(history.NewImmutable(origin, destination2, watchPercent2))
+	destination2 := peertube.NewImmutableDestinationVideo("V2", "http://example.com/2", "Video 2")
+	watchSeconds2 := int64(99)
+	vidHistory.AddHistory(history.NewImmutable(origin, destination2, watchSeconds2))
 
 	expected := []recommendations.Recommendation{
-		recommendations.NewImmutable(destination1.Name(), destination1.URI()),
-		recommendations.NewImmutable(destination2.Name(), destination2.URI()),
+		recommendations.NewImmutable(destination1.ID(), destination1.Name(), destination1.URI()),
+		recommendations.NewImmutable(destination2.ID(), destination2.Name(), destination2.URI()),
 	}
 
 	results, _ := r.List(origin)
@@ -112,24 +112,24 @@ func TestShouldPreferHistoryOverOtherVideos(t *testing.T) {
 
 	origin := peertube.NewVideoIdentifiers("origin video ID")
 
-	randomVideo := peertube.NewImmutableDestinationVideo(
+	randomVideo := peertube.NewImmutableDestinationVideo("V1",
 		"http://example.com/random-video",
 		"Random Video",
 	)
 	videos.AddVideo(randomVideo)
 
-	previousSuccess := peertube.NewImmutableDestinationVideo(
+	previousSuccess := peertube.NewImmutableDestinationVideo("V2",
 		"http://example.com/previous-success",
 		"Previous Successful Recommendation",
 	)
-	h := history.NewImmutable(origin, previousSuccess, 0.5)
+	h := history.NewImmutable(origin, previousSuccess, 50)
 	vidHistory.AddHistory(h)
 
 	results, _ := r.List(origin)
 
 	expected := []recommendations.Recommendation{
-		recommendations.NewImmutable(previousSuccess.Name(), previousSuccess.URI()),
-		recommendations.NewImmutable(randomVideo.Name(), randomVideo.URI()),
+		recommendations.NewImmutable(previousSuccess.ID(), previousSuccess.Name(), previousSuccess.URI()),
+		recommendations.NewImmutable(randomVideo.ID(), randomVideo.Name(), randomVideo.URI()),
 	}
 
 	assertRecommendationsEqual(t, expected, results)

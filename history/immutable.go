@@ -1,17 +1,23 @@
 package history
 
-func NewImmutable(o Origin, d Destination, watchPercent float64) Immutable {
+import "github.com/bradsk88/peertube-recommender/peertube"
+
+func NewImmutable(o peertube.VideoIdentification, d Destination, watchSeconds int64) Immutable {
 	return Immutable{
 		origin:       o,
 		destination:  d,
-		watchPercent: watchPercent,
+		watchSeconds: watchSeconds,
 	}
 }
 
 type Immutable struct {
 	origin       Origin
 	destination  Destination
-	watchPercent float64
+	watchSeconds int64
+}
+
+func (i Immutable) WatchSeconds() int64 {
+	return i.watchSeconds
 }
 
 func (i Immutable) Video() Destination {

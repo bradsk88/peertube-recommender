@@ -13,7 +13,7 @@ type recommendationResponse struct {
 }
 
 type originData struct {
-	ID string `json:"video_id"`
+	ID string `json:"videoId"`
 }
 
 type ListResponseFormatter struct {
@@ -39,7 +39,7 @@ func (l *ListResponseFormatter) format(o origin, r []recommendations.Recommendat
 func normalizeData(r []recommendations.Recommendation) []recommendations.Immutable {
 	out := make([]recommendations.Immutable, len(r))
 	for i, rec := range r {
-		out[i] = recommendations.NewImmutable(rec.Name(), rec.URI())
+		out[i] = recommendations.NewImmutable(rec.ID(), rec.Name(), rec.URI())
 	}
 	return out
 }

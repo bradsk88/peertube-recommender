@@ -7,7 +7,7 @@ func NewVideoIdentifiers(videoID string) VideoIdentification {
 }
 
 type SimpleVideoIdentification struct {
-	ID string `json:"video_id"`
+	ID string `json:"videoId"`
 }
 
 func (s *SimpleVideoIdentification) VideoID() string {

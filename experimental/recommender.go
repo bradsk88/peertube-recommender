@@ -47,7 +47,7 @@ func historyToDestination(h []history.History) []peertube.DestinationVideo {
 func destinationToRecommendations(v []peertube.DestinationVideo) []recommendations.Recommendation {
 	var out = make([]recommendations.Recommendation, len(v))
 	for i, d := range v {
-		out[i] = recommendations.NewImmutable(d.Name(), d.URI())
+		out[i] = recommendations.NewImmutable(d.ID(), d.Name(), d.URI())
 	}
 	return out
 }

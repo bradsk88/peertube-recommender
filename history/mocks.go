@@ -2,6 +2,7 @@ package history
 
 import "fmt"
 
+//NewMockRepository creates a new MockRepository
 func NewMockRepository() *MockRepository {
 	return &MockRepository{
 		entries:    []History{},
@@ -21,6 +22,7 @@ func (m *MockRepository) LookupForOrigin(origin Origin) ([]History, error) {
 	return m.entries, nil
 }
 
-func (m *MockRepository) AddHistory(history History) {
+func (m *MockRepository) AddHistory(history History) error {
 	m.entries = append(m.entries, history)
+	return nil
 }

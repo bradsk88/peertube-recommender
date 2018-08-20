@@ -1,15 +1,21 @@
 package peertube
 
-func NewImmutableDestinationVideo(uri string, name string) ImmutableDestinationVideo {
+func NewImmutableDestinationVideo(videoId string, uri string, name string) ImmutableDestinationVideo {
 	return ImmutableDestinationVideo{
-		uri:  uri,
-		name: name,
+		uri:     uri,
+		name:    name,
+		videoId: videoId,
 	}
 }
 
 type ImmutableDestinationVideo struct {
-	name string
-	uri  string
+	name    string
+	uri     string
+	videoId string
+}
+
+func (v ImmutableDestinationVideo) ID() string {
+	return v.videoId
 }
 
 func (v ImmutableDestinationVideo) URI() string {

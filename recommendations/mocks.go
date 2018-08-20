@@ -11,7 +11,7 @@ type RecommenderMock struct {
 
 func (*RecommenderMock) List(origin peertube.VideoIdentification) ([]Recommendation, error) {
 	return []Recommendation{
-		NewImmutable("Video 1", "http://example.com/1"),
-		NewImmutable("Video 2", "http://example.com/2"),
+		NewImmutable("V1", "Video 1", "http://example.com/1"),
+		NewImmutable("V2", "Video 2", "http://example.com/2"),
 	}, nil
 }

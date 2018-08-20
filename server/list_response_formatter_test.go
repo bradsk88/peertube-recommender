@@ -9,15 +9,15 @@ import (
 func TestFormatGeneratesCorrectResponseForSimpleRecommendations(t *testing.T) {
 	formatter := &ListResponseFormatter{}
 	rs := []recommendations.Recommendation{
-		recommendations.NewImmutable("Name1", "URL1"),
-		recommendations.NewImmutable("Name2", "URL2"),
+		recommendations.NewImmutable("V1", "Name1", "URL1"),
+		recommendations.NewImmutable("V2", "Name2", "URL2"),
 	}
 	origin := peertube.NewVideoIdentifiers("origin1")
 	actual, err := formatter.format(origin, rs)
 	if err != nil {
 		t.Fail()
 	}
-	expected := `{"origin":{"video_id":"origin1"},"recommendations":[{"name":"Name1","uri":"URL1"},{"name":"Name2","uri":"URL2"}]}`
+	expected := `{"origin":{"videoId":"origin1"},"recommendations":[{"name":"Name1","uri":"URL1","id":"V1"},{"name":"Name2","uri":"URL2","id":"V2"}]}`
 	if string(actual) != expected {
 		t.Errorf("Expected:\n%s\nGot:\n%s", expected, string(actual))
 	}
