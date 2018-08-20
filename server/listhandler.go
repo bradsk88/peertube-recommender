@@ -24,7 +24,7 @@ type ListHandler struct {
 }
 
 func (h *ListHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	req, err := h.parser.parse(r)
+	req, err := h.parser.Parse(r)
 	if err != nil {
 		h.error(w, "Error parsing list request", err, 500)
 		return
