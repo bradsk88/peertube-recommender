@@ -15,7 +15,7 @@ type MockRepository struct {
 	RaiseOnGet bool
 }
 
-func (m *MockRepository) LookupForOrigin(origin Origin) ([]History, error) {
+func (m *MockRepository) List(videoID string) ([]History, error) {
 	if m.RaiseOnGet {
 		return nil, fmt.Errorf("raising on LOOKUP (get) as requested")
 	}

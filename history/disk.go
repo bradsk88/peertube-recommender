@@ -22,6 +22,10 @@ type DiskBackedRepository struct {
 	store *diskv.Diskv
 }
 
+func (d *DiskBackedRepository) List(videoID string) ([]History, error) {
+	panic("implement me")
+}
+
 type jsonHistory struct {
 	User      string `json:"user"`
 	Name      string `json:"name"`

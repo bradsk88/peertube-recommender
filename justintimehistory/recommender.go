@@ -19,6 +19,6 @@ type Recommender struct {
 }
 
 func (r *Recommender) List(origin peertube.VideoIdentification) ([]recommendations.Recommendation, error) {
-	history := r.historyRepo.List(origin.VideoID())
+	//history, err := r.historyRepo.List(origin.VideoID())
 	return nil, fmt.Errorf("not implemented")
 }

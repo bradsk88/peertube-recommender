@@ -17,7 +17,16 @@ func TestShouldReturnEmptyListIfNoHistoryExists(t *testing.T) {
 		t.Errorf("Should not have returned error: %s", err.Error())
 		return
 	}
-	expected := []recommendations.Recommendation{}
+	var expected []recommendations.Recommendation
 	tests.AssertRecommendationsEqual(t, expected, l)
+}
 
+func TestShouldReturnCorrectRecommendations(t *testing.T) {
+	// Add history for User 1 Video 1
+	// Add history for User 1 Video 2
+	// Add history for User 2 Video 1
+	// Add history for User 2 Video 3
+	// Get recommendations for origin Video 1
+	// Expect to get Video 2, Video 3
+	t.Errorf("not implemented")
 }
