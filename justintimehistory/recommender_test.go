@@ -18,15 +18,56 @@ func TestShouldReturnEmptyListIfNoHistoryExists(t *testing.T) {
 		return
 	}
 	var expected []recommendations.Recommendation
-	tests.AssertRecommendationsEqual(t, expected, l)
+	err = tests.AreRecommendationsEqual(expected, l)
+	if err != nil {
+		t.Error(err.Error())
+	}
 }
 
 func TestShouldReturnCorrectRecommendations(t *testing.T) {
-	// Add history for User 1 Video 1
-	// Add history for User 1 Video 2
-	// Add history for User 2 Video 1
-	// Add history for User 2 Video 3
-	// Get recommendations for origin Video 1
-	// Expect to get Video 2, Video 3
-	t.Errorf("not implemented")
+	repo := history.NewMockRepository()
+	origin := peertube.NewVideoIdentifiers("vid1")
+	dest1 := peertube.NewImmutableDestinationVideo("vid2", "http://example.com/2", "Video 2")
+	dest2 := peertube.NewImmutableDestinationVideo("vid3", "http://example.com/3", "Video 3")
+	repo.AddHistory(history.NewImmutable("user1", origin, dest1, 100))
+	repo.AddHistory(history.NewImmutable("user2", origin, dest2, 100))
+	r := Recommender{
+		historyRepo: repo,
+	}
+	l, err := r.List(origin)
+	if err != nil {
+		t.Errorf("Should not have returned error: %s", err.Error())
+	}
+	expected := []recommendations.Recommendation{
+		dest1,
+		dest2,
+	}
+	err = tests.AreRecommendationsEqual(expected, l)
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+}
+
+func TestShouldNotReturnUnrelatedVideos(t *testing.T) {
+	repo := history.NewMockRepository()
+	origin := peertube.NewVideoIdentifiers("vid1")
+	differentOrigin := peertube.NewVideoIdentifiers("vid99")
+	dest1 := peertube.NewImmutableDestinationVideo("vid2", "http://example.com/2", "Video 2")
+	dest2 := peertube.NewImmutableDestinationVideo("vid3", "http://example.com/3", "Video 3")
+	repo.AddHistory(history.NewImmutable("user1", origin, dest1, 100))
+	repo.AddHistory(history.NewImmutable("user2", differentOrigin, dest2, 100))
+	r := Recommender{
+		historyRepo: repo,
+	}
+	l, err := r.List(origin)
+	if err != nil {
+		t.Errorf("Should not have returned error: %s", err.Error())
+	}
+	expected := []recommendations.Recommendation{
+		dest1,
+	}
+	err = tests.AreRecommendationsEqual(expected, l)
+	if err != nil {
+		t.Errorf(err.Error())
+	}
 }

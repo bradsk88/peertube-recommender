@@ -1,4 +1,4 @@
-package server
+package responseformatters
 
 import (
 	"encoding/json"
@@ -16,12 +16,12 @@ type originData struct {
 	ID string `json:"videoId"`
 }
 
-type ListResponseFormatter struct {
+type List struct {
 }
 
 type origin peertube.VideoIdentification
 
-func (l *ListResponseFormatter) format(o origin, r []recommendations.Recommendation) ([]byte, error) {
+func (l *List) Format(o origin, r []recommendations.Recommendation) ([]byte, error) {
 	d := normalizeData(r)
 	rr := recommendationResponse{
 		Origin: originData{

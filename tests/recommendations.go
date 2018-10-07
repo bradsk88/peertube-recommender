@@ -1,11 +1,11 @@
 package tests
 
 import (
+	"fmt"
 	"github.com/bradsk88/peertube-recommender/recommendations"
-	"testing"
 )
 
-func AssertRecommendationsEqual(t *testing.T, expected []recommendations.Recommendation, actual []recommendations.Recommendation) {
+func AreRecommendationsEqual(expected []recommendations.Recommendation, actual []recommendations.Recommendation) error {
 	failed := false
 	if expected == nil && actual != nil {
 		failed = true
@@ -18,13 +18,13 @@ func AssertRecommendationsEqual(t *testing.T, expected []recommendations.Recomme
 	}
 	if !failed {
 		for i, val := range expected {
-			if val != actual[i] {
+			if !recommendations.AreEqual(val, actual[i]) {
 				failed = true
 			}
 		}
 	}
 	if failed {
-		t.Errorf("Recommendations did not match expectation:\n"+
+		return fmt.Errorf("Recommendations did not match expectation:\n"+
 			"Expected:\n"+
 			"%s\n"+
 			"but got:\n"+
@@ -32,4 +32,5 @@ func AssertRecommendationsEqual(t *testing.T, expected []recommendations.Recomme
 			expected, actual,
 		)
 	}
+	return nil
 }

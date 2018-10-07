@@ -1,4 +1,4 @@
-package server
+package responseformatters
 
 import (
 	"github.com/bradsk88/peertube-recommender/peertube"
@@ -7,13 +7,13 @@ import (
 )
 
 func TestFormatGeneratesCorrectResponseForSimpleRecommendations(t *testing.T) {
-	formatter := &ListResponseFormatter{}
+	formatter := &List{}
 	rs := []recommendations.Recommendation{
 		recommendations.NewImmutable("V1", "Name1", "URL1"),
 		recommendations.NewImmutable("V2", "Name2", "URL2"),
 	}
 	origin := peertube.NewVideoIdentifiers("origin1")
-	actual, err := formatter.format(origin, rs)
+	actual, err := formatter.Format(origin, rs)
 	if err != nil {
 		t.Fail()
 	}

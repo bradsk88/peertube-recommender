@@ -17,6 +17,7 @@ func main() {
 	r := justintimehistory.NewRecommender(h)
 
 	s := &server.HTTP{Logger: l, HistoryRepo: h, Recommender: r}
+	l.Info("Starting server")
 	err := s.Serve()
 	if err != nil {
 		panic(fmt.Sprintf("Failed to serve: %s", err.Error()))

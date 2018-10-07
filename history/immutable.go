@@ -30,3 +30,7 @@ func (i Immutable) WatchSeconds() int64 {
 func (i Immutable) Video() Destination {
 	return i.destination
 }
+
+func (i Immutable) Origin() peertube.VideoIdentification {
+	return i.origin
+}

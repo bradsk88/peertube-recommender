@@ -1,23 +1,23 @@
-package server
+package requestparsers
 
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/bradsk88/peertube-recommender/peertube"
+	"github.com/bradsk88/peertube-recommender/server/requests"
 	"github.com/pkg/errors"
 	"net/http"
 )
 
-func NewViewCreateRequestParser() *ViewCreateRequestParser {
-	return &ViewCreateRequestParser{}
+func ForCreateVideoView() *CreateVideoView {
+	return &CreateVideoView{}
 }
 
-type ViewCreateRequestParser struct {
+type CreateVideoView struct {
 }
 
-func (parser *ViewCreateRequestParser) Parse(r *http.Request) (*ViewCreateRequest, error) {
+func (parser *CreateVideoView) Parse(r *http.Request) (*requests.CreateVideoViewRequest, error) {
 	// Take care to only return errors that are OK for users to see
-	var req ViewCreateRequest
+	var req requests.CreateVideoViewRequest
 	d := json.NewDecoder(r.Body)
 	err := d.Decode(&req)
 	if err != nil {
@@ -39,13 +39,4 @@ func (parser *ViewCreateRequestParser) Parse(r *http.Request) (*ViewCreateReques
 		return nil, fmt.Errorf("watchSeconds must be an integer > 0")
 	}
 	return &req, nil
-}
-
-type ViewCreateRequest struct {
-	UserID       string                             `json:"userId"`
-	Origin       peertube.SimpleVideoIdentification `json:"origin"`
-	VideoURI     string                             `json:"videoUri"`
-	VideoName    string                             `json:"videoName"`
-	WatchSeconds int64                              `json:"watchSeconds"`
-	VideoID      string                             `json:"videoId"`
 }

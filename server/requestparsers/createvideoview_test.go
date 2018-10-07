@@ -1,8 +1,8 @@
-package server_test
+package requestparsers_test
 
 import (
 	"bytes"
-	"github.com/bradsk88/peertube-recommender/server"
+	"github.com/bradsk88/peertube-recommender/server/requestparsers"
 	"io/ioutil"
 	"net/http"
 	"testing"
@@ -15,7 +15,7 @@ func fakeRequest(body string) *http.Request {
 }
 
 func TestShouldReturnErrorIfRequestIsEmpty(t *testing.T) {
-	p := server.NewViewCreateRequestParser()
+	p := requestparsers.ForCreateVideoView()
 	body := `{}`
 	r := fakeRequest(body)
 	_, err := p.Parse(r)
@@ -25,7 +25,7 @@ func TestShouldReturnErrorIfRequestIsEmpty(t *testing.T) {
 }
 
 func TestShouldNotReturnErrorIfAllValuesPresentInRequest(t *testing.T) {
-	p := server.NewViewCreateRequestParser()
+	p := requestparsers.ForCreateVideoView()
 	body := `{
 		"origin": {
 			"videoId": "V0"
@@ -48,7 +48,7 @@ type missingValueTest struct {
 }
 
 func TestShouldReturnErrorIfMissingValue(t *testing.T) {
-	p := server.NewViewCreateRequestParser()
+	p := requestparsers.ForCreateVideoView()
 	tests := []missingValueTest{
 		{
 			name: "origin",

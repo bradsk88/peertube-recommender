@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"github.com/bradsk88/peertube-recommender/history"
 	"github.com/bradsk88/peertube-recommender/peertube"
+	"github.com/bradsk88/peertube-recommender/server/requestparsers"
 	"github.com/inconshreveable/log15"
 	"net/http"
 )
 
 func NewViewCreateHandler(l log15.Logger, repository history.Repository) *ViewCreateHandler {
 	createHandler := &ViewCreateHandler{
-		parser: NewViewCreateRequestParser(),
+		parser: requestparsers.ForCreateVideoView(),
 		repo:   repository,
 	}
 	createHandler.Logger = l.New("handler", "view:PUT")
@@ -19,7 +20,7 @@ func NewViewCreateHandler(l log15.Logger, repository history.Repository) *ViewCr
 
 type ViewCreateHandler struct {
 	handler
-	parser *ViewCreateRequestParser
+	parser *requestparsers.CreateVideoView
 	repo   history.Repository
 }
 

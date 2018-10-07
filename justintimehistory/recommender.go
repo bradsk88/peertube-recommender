@@ -1,10 +1,10 @@
 package justintimehistory
 
 import (
-	"fmt"
 	"github.com/bradsk88/peertube-recommender/history"
 	"github.com/bradsk88/peertube-recommender/peertube"
 	"github.com/bradsk88/peertube-recommender/recommendations"
+	"github.com/pkg/errors"
 )
 
 func NewRecommender(historyRepo history.Repository) *Recommender {
@@ -19,6 +19,14 @@ type Recommender struct {
 }
 
 func (r *Recommender) List(origin peertube.VideoIdentification) ([]recommendations.Recommendation, error) {
-	//history, err := r.historyRepo.List(origin.VideoID())
-	return nil, fmt.Errorf("not implemented")
+	histories, err := r.historyRepo.List(origin.VideoID())
+	if err != nil {
+		return nil, errors.Wrapf(err, "Failed to load history for origin video: %s", origin.VideoID())
+	}
+	var output []recommendations.Recommendation
+	for _, hItem := range histories {
+		v := recommendations.NewImmutable(hItem.Video().ID(), hItem.Video().Name(), hItem.Video().URI())
+		output = append(output, v)
+	}
+	return output, nil
 }
