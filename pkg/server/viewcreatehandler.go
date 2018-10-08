@@ -2,9 +2,9 @@ package server
 
 import (
 	"fmt"
-	"github.com/bradsk88/peertube-recommender/history"
-	"github.com/bradsk88/peertube-recommender/peertube"
-	"github.com/bradsk88/peertube-recommender/server/requestparsers"
+	"github.com/bradsk88/peertube-recommender/pkg/history"
+	"github.com/bradsk88/peertube-recommender/pkg/peertube"
+	"github.com/bradsk88/peertube-recommender/pkg/serverrver/requestparsers"
 	"github.com/inconshreveable/log15"
 	"net/http"
 )

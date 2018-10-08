@@ -1,6 +1,6 @@
 package recommendations
 
-import "github.com/bradsk88/peertube-recommender/peertube"
+import "github.com/bradsk88/peertube-recommender/pkg/peertube"
 
 type Recommender interface {
 	List(origin peertube.VideoIdentification) ([]Recommendation, error)

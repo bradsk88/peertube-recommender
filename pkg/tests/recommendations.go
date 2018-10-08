@@ -2,7 +2,7 @@ package tests
 
 import (
 	"fmt"
-	"github.com/bradsk88/peertube-recommender/recommendations"
+	"github.com/bradsk88/peertube-recommender/pkg/recommendations"
 )
 
 func AreRecommendationsEqual(expected []recommendations.Recommendation, actual []recommendations.Recommendation) error {

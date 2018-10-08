@@ -1,8 +1,8 @@
 package responseformatters
 
 import (
-	"github.com/bradsk88/peertube-recommender/peertube"
-	"github.com/bradsk88/peertube-recommender/recommendations"
+	"github.com/bradsk88/peertube-recommender/pkg/peertube"
+	"github.com/bradsk88/peertube-recommender/pkg/recommendations"
 	"testing"
 )
 

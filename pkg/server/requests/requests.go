@@ -1,6 +1,6 @@
 package requests
 
-import "github.com/bradsk88/peertube-recommender/peertube"
+import "github.com/bradsk88/peertube-recommender/pkg/peertube"
 
 type ListRequest struct {
 	Origin peertube.SimpleVideoIdentification `json:"origin"`

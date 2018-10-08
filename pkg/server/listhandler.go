@@ -1,9 +1,9 @@
 package server
 
 import (
-	"github.com/bradsk88/peertube-recommender/recommendations"
-	"github.com/bradsk88/peertube-recommender/server/requestparsers"
-	"github.com/bradsk88/peertube-recommender/server/responseformatters"
+	"github.com/bradsk88/peertube-recommender/pkg/recommendations"
+	"github.com/bradsk88/peertube-recommender/pkg/serverrver/requestparsers"
+	"github.com/bradsk88/peertube-recommender/pkg/serverrver/responseformatters"
 	log "github.com/inconshreveable/log15"
 	"net/http"
 )

@@ -1,8 +1,8 @@
 package server
 
 import (
-	"github.com/bradsk88/peertube-recommender/history"
-	"github.com/bradsk88/peertube-recommender/recommendations"
+	"github.com/bradsk88/peertube-recommender/pkg/history"
+	"github.com/bradsk88/peertube-recommender/pkg/recommendations"
 	"github.com/inconshreveable/log15"
 	"github.com/pkg/errors"
 	"net/http"

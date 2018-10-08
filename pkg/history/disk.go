@@ -3,7 +3,7 @@ package history
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/bradsk88/peertube-recommender/peertube"
+	"github.com/bradsk88/peertube-recommender/pkg/peertube"
 	"github.com/peterbourgon/diskv"
 	"github.com/pkg/errors"
 	"io/ioutil"

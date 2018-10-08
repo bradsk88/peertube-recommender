@@ -1,9 +1,9 @@
 package justintimehistory
 
 import (
-	"github.com/bradsk88/peertube-recommender/history"
-	"github.com/bradsk88/peertube-recommender/peertube"
-	"github.com/bradsk88/peertube-recommender/recommendations"
+	"github.com/bradsk88/peertube-recommender/pkg/history"
+	"github.com/bradsk88/peertube-recommender/pkg/peertube"
+	"github.com/bradsk88/peertube-recommender/pkg/recommendations"
 	"github.com/pkg/errors"
 )
 

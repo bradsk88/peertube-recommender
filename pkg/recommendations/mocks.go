@@ -1,6 +1,6 @@
 package recommendations
 
-import "github.com/bradsk88/peertube-recommender/peertube"
+import "github.com/bradsk88/peertube-recommender/pkg/peertube"
 
 func NewRecommenderMock() *RecommenderMock {
 	return &RecommenderMock{}

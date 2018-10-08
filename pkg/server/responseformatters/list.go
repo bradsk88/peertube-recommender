@@ -2,8 +2,8 @@ package responseformatters
 
 import (
 	"encoding/json"
-	"github.com/bradsk88/peertube-recommender/peertube"
-	"github.com/bradsk88/peertube-recommender/recommendations"
+	"github.com/bradsk88/peertube-recommender/pkg/peertube"
+	"github.com/bradsk88/peertube-recommender/pkg/recommendations"
 	"github.com/pkg/errors"
 )
 

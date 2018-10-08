@@ -1,6 +1,6 @@
 package history
 
-import "github.com/bradsk88/peertube-recommender/peertube"
+import "github.com/bradsk88/peertube-recommender/pkg/peertube"
 
 type History interface {
 	UserID() string

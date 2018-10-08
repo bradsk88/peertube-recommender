@@ -2,7 +2,7 @@ package requestparsers_test
 
 import (
 	"bytes"
-	"github.com/bradsk88/peertube-recommender/server/requestparsers"
+	"github.com/bradsk88/peertube-recommender/pkg/serverrver/requestparsers"
 	"io/ioutil"
 	"net/http"
 	"testing"

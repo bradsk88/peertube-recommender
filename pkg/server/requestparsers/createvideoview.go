@@ -3,7 +3,7 @@ package requestparsers
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/bradsk88/peertube-recommender/server/requests"
+	"github.com/bradsk88/peertube-recommender/pkg/serverrver/requests"
 	"github.com/pkg/errors"
 	"net/http"
 )

@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/bradsk88/peertube-recommender/history"
-	"github.com/bradsk88/peertube-recommender/justintimehistory"
-	"github.com/bradsk88/peertube-recommender/server"
+	"github.com/bradsk88/peertube-recommender/pkg/history"
+	"github.com/bradsk88/peertube-recommender/pkg/justintimehistory"
+	"github.com/bradsk88/peertube-recommender/pkg/server"
 	"github.com/inconshreveable/log15"
 	"os"
 )

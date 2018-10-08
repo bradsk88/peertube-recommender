@@ -1,6 +1,6 @@
 package history
 
-import "github.com/bradsk88/peertube-recommender/peertube"
+import "github.com/bradsk88/peertube-recommender/pkg/peertube"
 
 func NewImmutable(userId string, origin peertube.VideoIdentification,
 	dest Destination, watchSeconds int64) Immutable {
